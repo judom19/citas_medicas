@@ -1,0 +1,14 @@
+entorno_medapp
+
+# Ignorar archivos de configuración local (ajusta según tus necesidades)
+*.sqlite3
+*.pyc
+*.pyo
+__pycache__/
+
+# Ignorar archivos generados por IDEs o editores
+.idea/
+.vscode/
+
+# Ignorar archivos de migraciones si no deseas incluirlos en el repositorio
+**/migrations/
