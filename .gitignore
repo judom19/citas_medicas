@@ -1,7 +1,7 @@
 entorno_medapp
 
 # Ignorar archivos de configuración local (ajusta según tus necesidades)
-*.sqlite3
+*db.sqlite3
 *.pyc
 *.pyo
 __pycache__/
