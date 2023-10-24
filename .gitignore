@@ -1,21 +1,14 @@
-# Carpeta de migraciones
-citas_app/migrations/__pycache__/
+entorno_medapp
 
-# Directorios de archivos generados por Docker y tu entorno virtual
-entorno_medapp/
+# Ignorar archivos de configuración local (ajusta según tus necesidades)
+*db.sqlite3
+*.pyc
+*.pyo
 __pycache__/
-venv/
 
-# Directorios y archivos específicos de la aplicación
-test/
-db.sqlite3
+# Ignorar archivos generados por IDEs o editores
+.idea/
+.vscode/
 
-# Archivos y directorios generados por Docker
-docker-compose.yml
-Dockerfile
-
-# Archivo generado por Django
-manage.py
-
-# Archivo de requisitos de Python
-requirements.txt
+# Ignorar archivos de migraciones si no deseas incluirlos en el repositorio
+**/migrations/
