@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- inicio_titulo -->
+{% block title %}
+    <title>Contacto - MedApp</title>
+{% endblock title %}
+<!-- fin_titulo -->
+
+<!-- inicio_seccion_principal_02 -->
+{% block seccion_principal_02 %}
+    <div class="container">
+        <div class="card bg-light p-3 m-3">
+            <div class="card-body">
+                <h5 class="card-title">Formulario de Contacto</h5>
+                <form>
+                <div class="form-group">
+                    <label for="asunto">Asunto:</label>
+                    <input type="text" class="form-control" id="asunto" name="asunto">
+                </div>
+                <div class="form-group">
+                    <label for="mensaje">Cuerpo del Mensaje:</label>
+                    <textarea class="form-control" id="mensaje" name="mensaje" rows="4"></textarea>
+                </div>
+                    <button type="submit" class="btn btn-primary mt-2">Enviar</button>
+                    </form>
+                </div>
+            </div>
+                <div class="card bg-light p-3 m-3">
+            <div class="card-body">
+                <h5 class="card-title">WhatsApp</h5>
+                <p class="card-text">Comunicate con tu medico de forma inmediata</p>
+                <a href="https://wa.me/1234567890" class="btn btn-success" target="_blank">WhatsApp</a>
+            </div>
+        </div>
+    </div>
+{% endblock seccion_principal_02 %}
+<!-- fin_seccion_principal_02 -->

@@ -1,0 +1,74 @@
+{% extends "CRUD_appointments/citas_medicas_list.html" %}
+
+<!-- inicio_bloque_CRUD_citas -->
+{% block bloque_CRUD_citas %}
+    <h5 class="text-center">{% if cita %}Editar Cita Médica{% else %}Crear Cita Médica{% endif %}</h5>
+    <div class="container card border rounded border-2 p-3">
+        {% if cita %}
+            <!-- Mensaje de edición -->
+            <div class="alert alert-info text-center text-secondary">
+                Esta es una cita existente. Puedes editarla aquí.
+            </div>
+        {% endif %}
+        <form method="post" id="cita-form">
+            {% csrf_token %}
+            <table class="table table-striped border rounded border-3" >
+                <tbody>
+
+                    <!-- Fila 1: Campo Médico y Campo Fecha -->
+                    <tr class="table-primary">
+                        <td>
+                            <div class="form-group">
+                                <p class="p-2">{{ form.medico.label_tag }} {{ form.medico }}</p>
+                                {% if form.medico.errors %}
+                                    <p class="alert alert-danger mt-2">
+                                        {{ form.medico.errors }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <p class="p-2">{{ form.fecha.label_tag }} <input type="date" id="id_fecha" name="fecha" class="form-control" required></p>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Fila 2: Campo Hora y campo motivo -->
+                    <tr class="table-secondary">
+                        <td>
+                            <div class="form-group">
+                                <p class="p-2">{{ form.hora.label_tag }} {{ form.hora }}</p>
+                                {% if form.hora.errors %}
+                                    <p class="alert alert-danger mt-2">
+                                        {{ form.hora.errors }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td colspan="2">
+                            <div class="form-group">
+                                <p class="p-2">{{ form.motivo.label_tag }} {{ form.motivo }}</p>
+                                {% if form.motivo.errors %}
+                                    <p class="alert alert-danger mt-2">
+                                        {{ form.motivo.errors }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary mt-3" id="botones_personalizados">
+                {% if cita %}Guardar Cambios{% else %}Crear Cita{% endif %}
+            </button>
+        </form>
+        {% if cita_exists %}
+            <!-- Mensaje de error si ya existe una cita para la misma fecha -->
+            <div class="alert alert-danger mt-3 text-secondary">
+                Ya hay una cita para esta fecha. Revisa las fechas disponibles
+            </div>
+        {% endif %}
+    </div>
+{% endblock bloque_CRUD_citas %}
+<!-- fin_bloque_CRUD_citas -->

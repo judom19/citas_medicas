@@ -1,0 +1,25 @@
+ /* Establece el estilo de transición */
+.container-transition {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* Agrega el estilo para mostrar */
+.container-transition.show {
+    opacity: 1;
+}
+
+/* Estilo para el elemento activo en el menú */
+.navbar-nav .nav-item.active {
+    background-color: rgb(214, 207, 197); /* Cambia el color de fondo a azul */
+    border: 2px solid rgb(214, 207, 197);
+    border-radius: 5px;   
+    
+}
+
+#botones_personalizados{
+    background-color: rgb(214, 207, 197); /* Cambia el color de fondo a azul */
+    border: 2px solid rgb(214, 207, 197);
+    border-radius: 5px;   
+    color: black;
+}

@@ -1,0 +1,36 @@
+{% extends "CRUD_appointments/closest_appointments.html" %}
+
+<!-- inicio_seccion_principal_02 -->
+{% block seccion_principal_02 %}
+<div class="container col-md-10 border rounded border-3 p-3">
+    <h3 class="text-center bg-white p-3 border rounded border-2">Eliminar Cita Médica</h3>
+    <hr>
+    <p>¿Estás seguro de que deseas eliminar la siguiente cita médica?</p>
+
+    <dl class="row">
+		<dt class="col-sm-3">Codigo Cita:</dt>
+		<dd class="col-sm-9">{{ cita.id }}</dd>
+
+		<dt class="col-sm-3">Médico:</dt>
+		<dd class="col-sm-9">{{ cita.medico }}</dd>
+
+		<dt class="col-sm-3">Fecha:</dt>
+		<dd class="col-sm-9">{{ cita.fecha }}</dd>
+
+		<dt class="col-sm-3">Hora:</dt>
+		<dd class="col-sm-9">{{ cita.hora }}</dd>
+
+		<dt class="col-sm-3">Motivo:</dt>
+		<dd class="col-sm-9">{{ cita.motivo }}</dd>
+    </dl>
+
+    <div class="">
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+            <a href="{% url 'medical_appointments:appointments_list' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock seccion_principal_02 %}
+<!-- fin_seccion_principal_02 -->

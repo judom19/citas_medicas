@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!-- inicio_bloque_CRUD_citas -->
+{% block bloque_CRUD_citas %}
+    <div class="container">
+        <h3 class="text-center text-secondary p-3 m-3">Médicos y Especialidades</h3>
+        <input type="text" id="searchInput" class="form-control" placeholder="Buscar por medico o especialidad">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-secondary">Nombre   |   Especialidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for medico in medicos %}
+                    <tr>
+                        <td>{{ medico.nombre_medico }} {{ medico.apellido_medico }} | {{ medico.especialidad_medico }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>    
+{% endblock bloque_CRUD_citas %}
+<!-- fin_bloque_CRUD_citas -->
+
+<!-- inicio_seccion_principal_02 -->
+{% block seccion_principal_02 %}    
+    
+    <!-- inicio_contenedor_info_carousel -->
+    <div id="carouselId01" class="carousel slide p-3" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{% static 'img/medico01.png' %}" alt="Médico 1" class="d-block" height="300" style="border-radius: 10px;">
+                <div class="carousel-caption card col-md-6 offset-3" style="border-radius: 10px;">
+                    <h3 class="text-secondary">Dr. Domínguez</h3>
+                    <h2 class="text-secondary">Dentista</h2>
+                    <div class="container col-6">
+                        <p class="text-secondary">Dentista con mas de 4 años de ejercer en nuestro consultorio</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'img/medico02.png' %}" alt="Médico 2" class="d-block" height="300" style="border-radius: 10px;">
+                <div class="carousel-caption card col-md-6 offset-3" style="border-radius: 10px;">
+                    <h3 class="text-secondary">Dra. Castro</h3>
+                    <h2 class="text-secondary">Oftalmologo</h2>
+                    <div class="container col-6">
+                        <p class="text-secondary">Medico Oftalmologo especialista con mas de 7 años de ejercer en nuestro consultorio</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'img/medico03.png' %}" alt="Médico 3" class="d-block" height="300" style="border-radius: 10px;">
+                <div class="carousel-caption  card col-md-6 offset-3" style="border-radius: 10px;">
+                    <h3 class="text-secondary">Dra. Sanchez</h3>
+                    <h2 class="text-secondary">Pediatra</h2>
+                    <div class="container col-6">
+                        <p class="text-secondary">Pediatría especialista con mas de 6 años de ejercer en nuestro consultorio</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselId01" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="false"></span>
+            <span class="text-dark">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselId01" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="false"></span>
+            <span class="text-dark">Siguiente</span>
+        </button>
+    </div>
+    
+    <!-- inicio_contenedor_info_consultorio -->
+    <div class="card container p-3 m-3 bg-light col-11">
+        <div class="card-body">
+            <h5 class="card-title text-center text-secondary">Nuestros Profesionales de la Salud</h5>
+            <p class="card-text text-secondary">En nuestro consultorio médico, nos enorgullece contar con un equipo de médicos altamente calificados y comprometidos con su salud y bienestar. Todos nuestros médicos cuentan con licencia para ejercer la medicina y están dedicados a brindar atención médica de calidad a nuestros pacientes.</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item text-muted">Equipo de médicos especializados</li>
+            <li class="list-group-item text-muted">Atención médica integral</li>
+            <li class="list-group-item text-muted">Compromiso con la salud de nuestros pacientes</li>
+        </ul>
+        {% if user.paciente %}
+            <div class="card-body">
+                <a href="{% url 'citas_app:appointments_create' %}" class="card-link btn btn-sm btn-primary">Solicita una cita</a>
+            </div>
+        {% else %}
+        {% endif %}
+
+    </div>
+
+{% endblock seccion_principal_02 %} 
+<!-- fin_seccion_principal_02 -->
+
+<!-- inicio_notificaciones -->
+{% block notificaciones %}
+  
+{% endblock notificaciones %}
+<!-- fin_notificaciones -->

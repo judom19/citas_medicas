@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!-- inicio_menu_sidebar -->
+{% block menu_sidebar %}
+    <nav class="navbar navbar-expand mt-2 mb-2" style="background-color: #eceef0;" id="botones_personalizados">
+        <div class="container">            
+            <a class="navbar-brand" href="{% url 'medical_appointments:closest_appointments' %}">
+                <i class="fas fa-home"></i> Inicio
+            </a>         
+            <ul class="navbar-nav justify-content-center nav-fill">                
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'citas_app:appointments_list' %}">Mis Citas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-link" href="{% url 'citas_app:appointments_create' %}">Solicitar una cita</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-link" href="{% url 'citas_app:historial_completo_paciente' %}">Mi Historial</a>
+                </li>
+                
+            </ul>
+        </div>
+    </nav>                
+{% endblock menu_sidebar %}
+<!-- fin_menu_sidebar -->
+
+<!-- inicio_seccion_principal_02 -->
+{% block seccion_principal_02 %}
+    <h3 class="text-center card p-3 text-dark col-md-8 offset-1 " id="botones_personalizados" style="border-radius: 15px;">Mis notificaciones</h3>
+    {% if proxima_cita %}
+        <div class="card border rounded border-2 col-md-8 offset-1 p-2 bg-success mb-1">
+            <div class="card-body">
+                <h4 class="card-title">Cita confirmadas</h4>
+                <p class="card-text">La próxima cita es el {{ proxima_cita.fecha|date:"l, d F Y" }} a las {{ proxima_cita.hora|time:"H:i" }}.
+                </p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Motivo: {{ proxima_cita.motivo }}</p></li>
+                <li class="list-group-item">Tu cita fué confirmada por el médico: {{ proxima_cita.medico.nombre_medico }} {{ proxima_cita.medico.apellido_medico }}</li>
+            </ul>
+        </div>
+    {% else %}
+        <h3 class="text-center p-3">Aun no tienes citas confirmadas</h3>
+    {% endif %}
+    {% if proxima_cita_solicitada %}    
+        <div class="card border rounded border-2 col-md-8 offset-1 p-2 bg-info mb-1">
+            <div class="card-body">
+                <h4 class="card-title">Cita solicita mas cercana</h4>
+                <p class="card-text">Fecha: {{ proxima_cita_solicitada.fecha|date:"l, d F Y" }} a las {{ proxima_cita_solicitada.hora|time:"H:i" }}.
+                </p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Motivo: {{ proxima_cita_solicitada.motivo }}</p></li>
+                <li class="list-group-item">Tu cita fué agendada con el médico: {{ proxima_cita_solicitada.medico.nombre_medico }} {{ proxima_cita_solicitada.medico.apellido_medico }} a espera de confimación</li>
+            </ul>
+        </div>
+    {% else %}
+        <div class="container offset-1 p-3 mt-3">
+            <h3 class="text-secondary">No tienes citas pendientes de confirmación</h3>
+        </div>
+    {% endif %}
+{% endblock seccion_principal_02 %}
+<!-- fin_seccion_principal_02 -->

@@ -1,0 +1,31 @@
+{% extends 'doctors/vista_solicitudes_medico.html' %}
+
+{% block seccion_principal_02 %}
+    <div class="container mt-3">
+        <div class="card col-md-10 border rounded border-3">
+            <div class="card-header">
+                <h3 class="text-center">Iniciar Cita Médica</h3>
+            </div>
+            <div class="card-body col-md-10 offset-1">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group col-md-12">
+                        <label for="{{ form.diagnostico.id_for_label }}">Diagnóstico</label>
+                        <textarea class="form-control" id="{{ form.diagnostico.id_for_label }}" name="{{ form.diagnostico.name }}" rows="5"></textarea>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="{{ form.tratamiento.id_for_label }}">Tratamiento</label>
+                        <textarea class="form-control" id="{{ form.tratamiento.id_for_label }}" name="{{ form.tratamiento.name }}" rows="5"></textarea>
+                    </div>
+                    <div class="form-check mt-3">
+                        <input type="checkbox" class="form-check-input" id="{{ form.completada.id_for_label }}" name="{{ form.completada.name }}">
+                        <label class="form-check-label" for="{{ form.completada.id_for_label }}">
+                            Finalizada
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock seccion_principal_02 %}

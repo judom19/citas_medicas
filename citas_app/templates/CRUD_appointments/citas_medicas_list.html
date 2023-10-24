@@ -1,0 +1,111 @@
+{% extends "CRUD_appointments/closest_appointments.html" %}
+
+<!-- inicio_bloque_CRUD_citas -->
+{% block bloque_CRUD_citas %}
+    <div class="container card border rounded border-2">
+        <h5 class="text-center p-3">Listado de mis citas</h5>
+        <div class="table-responsive border rounded border-2 p-1 m-1">
+            <table class="table table-responsive bg-light">
+                <thead>
+                    <tr class="">
+                        <th class="text-center" scope="col">Cod Cita</th>
+                        <th class="text-center" scope="col">Médico</th>
+                        <th class="text-center" scope="col">Fecha</th>
+                        <th class="text-center" scope="col">Hora</th>
+                        <th class="text-center" scope="col">Motivo</th>
+                        <th class="text-center" scope="col">Estado</th> <!-- Agrega una columna para el estado -->
+                        <th class="text-center" scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cita in solicitudes_citas %}
+                        <tr class="">
+                            <td class="text-center">{{ cita.id }}</td>
+                            <td class="text-center">{{ cita.medico }}</td>
+                            <td class="text-center">{{ cita.fecha }}</td>
+                            <td class="text-center">{{ cita.hora }}</td>
+                            <td class="text-center">{{ cita.motivo }}</td>
+                            <td>
+                                {% if cita.confirmado %}
+                                    {% if cita.completada %}
+                                        <span class="text-info">Finalizada</span>
+                                    {% else %}
+                                    <span class="text-success">Confirmada</span> 
+                                    {% endif %}  
+                                {% else %}
+                                    <span class="text-warning">Pendiente</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if cita.confirmado %}
+                                    {% if cita.completada %}
+                                        <a href="{% url 'citas_app:ver_historial_personal' cita.id %}" class="btn btn-sm btn-info">Detalles</a>                                        
+                                    {% else %}
+                                    <a href="{% url 'citas_app:ver_historial_personal' cita.id %}" class="btn btn-sm btn-success">Detalles</a>                                                                              
+                                    {% endif %}
+                                {% else %}  
+                                <a href="{% url 'citas_app:appointments_update' cita.id %}" class="btn btn-primary btn-sm" title="Editar">
+                                    <i class="fas fa-edit"></i> <!-- Ícono de edición -->
+                                </a>
+                                <a href="{% url 'citas_app:appointments_delete' cita.id %}" class="btn btn-danger btn-sm" title="Eliminar">
+                                    <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminación -->
+                                </a> 
+                                {% endif %}
+                            </td>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock bloque_CRUD_citas %}
+<!-- fin_bloque_CRUD_citas -->
+
+<!-- inicio_seccion_principal_02 -->
+{% block seccion_principal_02 %}
+    <div class="container card border rounded border-2">
+        <h3 class="mt-5 text-secondary text-center">Fechas cercanas disponibles</h3>
+        <div class="row p-3">
+            <div class="col-md-4 card border rounded border-3 p-3">
+                <table class="table table-bordered table-primary">
+                    <thead>
+                        <tr>
+                            <th class="text-mute text-center bg-info">Fechas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for dia in dias_disponibles|slice:":7" %}
+                            <tr>
+                                <td class="text-center">{{ dia|date:"d-m-Y" }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td class="text-danger">No hay días disponibles este mes.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4 offset-2 card border rounded border-3 p-3">
+                <table class="table table-bordered table-primary">
+                    <thead>
+                        <tr>
+                            <th class="text-mute text-center bg-info">Fechas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for dia in dias_disponibles|slice:"7:" %}
+                            <tr>
+                                <td class="text-center">{{ dia|date:"d-m-Y" }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td class="text-danger">No hay días disponibles este mes.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock seccion_principal_02 %}
+<!-- fin_seccion_principal_02 -->

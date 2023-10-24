@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+<!-- inicio_bloque_CRUD_citas -->
+{% block bloque_CRUD_citas %}
+    <h5 class="text-center">{% if cita %}Editar Cita Médica{% else %}Crear Cita Médica{% endif %}</h5>
+    <div class="container">
+        {% if error_message %}
+            <div class="alert alert-danger">
+                {{ error_message }}
+            </div>
+        {% endif %}
+        <a class="btn btn-sm btn-primary" href="{% url 'citas_app:appointments_create' %}">Crear una cita</a>
+    </div>
+{% endblock bloque_CRUD_citas %}
+<!-- fin_bloque_CRUD_citas -->

@@ -1,0 +1,70 @@
+{% extends "login.html" %}
+{% load static %}
+
+<!-- inicio_contenido_formulario -->
+{% block formualiro_login_registro %}
+<div class="container col-sm-12 col-md-6 col-lg-10 container-transition">
+    <h3>Registro completo de Paciente</h3>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group mt-3">
+            <label for="{{ form.nombre_paciente.id_for_label }}">Nombre Paciente</label>
+            <input type="text" name="{{ form.nombre_paciente.name }}" class="form-control" id="{{ form.nombre_paciente.id_for_label }}" placeholder="Ingresa el nombre del paciente" autofocus>
+            {% if form.nombre_paciente.errors %}
+                <p class="alert alert-danger mt-2">
+                    {% for error in form.nombre_paciente.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </p>
+            {% endif %}
+        </div>                                       
+        <div class="form-group mt-3">
+            <label for="{{ form.apellido_paciente.id_for_label }}">Apellido Paciente</label>
+            <input type="text" name="{{ form.apellido_paciente.name }}" class="form-control" id="{{ form.apellido_paciente.id_for_label }}" placeholder="Ingresa el apellido del paciente" autofocus>
+            {% if form.apellido_paciente.errors %}
+                <p class="alert alert-danger mt-2">
+                    {% for error in form.apellido_paciente.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </p>
+            {% endif %}
+        </div>
+        <div class="form-group mt-3">
+            <label for="{{ form.edad_paciente.id_for_label }}">Edad Paciente</label>
+            <input type="text" name="{{ form.edad_paciente.name }}" class="form-control" id="{{ form.edad_paciente.id_for_label }}" placeholder="Ingresa la edad del paciente" autofocus>
+            {% if form.edad_paciente.errors %}
+                <p class="alert alert-danger mt-2">
+                    {% for error in form.edad_paciente.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </p>
+            {% endif %}
+        </div>
+        <div class="form-group mt-3">
+            <label for="{{ form.sexo_paciente.id_for_label }}">Sexo Paciente</label>
+            <input type="text" name="{{ form.sexo_paciente.name }}" class="form-control" id="{{ form.sexo_paciente.id_for_label }}" placeholder="Ingresa el sexo del paciente" autofocus>
+            {% if form.sexo_paciente.errors %}
+                <p class="alert alert-danger mt-2">
+                    {% for error in form.sexo_paciente.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </p>
+            {% endif %}
+        </div>
+        <div class="form-group mt-3">
+            <label for="{{ form.fecha_nac_paciente.id_for_label }}">Fecha de Nacimiento Paciente</label>
+            <input type="date" name="{{ form.fecha_nac_paciente.name }}" class="form-control" id="{{ form.fecha_nac_paciente.id_for_label }}" placeholder="Ingresa la fecha de nacimiento del paciente" autofocus>
+            {% if form.fecha_nac_paciente.errors %}
+                <p class="alert alert-danger mt-2">
+                    {% for error in form.fecha_nac_paciente.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </p>
+            {% endif %}
+        </div>        
+        <button id="botones_personalizados" type="submit" class="btn btn-sm mt-3 mb-3">Confirmar Registro</button>
+    </form>
+</div>                       
+
+{% endblock formualiro_login_registro %}
+<!-- fin_contenido_formulario -->

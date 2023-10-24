@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+<!-- inicio_bloque_CRUD_citas -->
+{% block bloque_CRUD_citas %}
+    <div class="container col-md-8">
+        <div class="card border-light rounded border-5 mt-5 ">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">¿Deseas confirmar la cita?</h3>
+            <div class="container">
+                <p class="card-text">Paciente: <strong>{{ cita.paciente }}</strong> </p>
+                <p class="card-text">Fecha: <strong>{{ cita.fecha }}</strong></p>
+                <p class="card-text">Hora: <strong>{{ cita.hora }}</strong></p>
+                <p class="card-text">Motivo: <strong>{{ cita.hora }}</strong></p>
+            </div>
+            <form method="post">
+            {% csrf_token %}
+            <div class="container">
+                <button type="submit" class="btn btn-primary btn-md mb-1 mt-2" name="confirmar_cita">Confirmar Cita</button>
+            </div>
+            
+            </form>
+            </div>
+        </div>
+    </div>
+{% endblock bloque_CRUD_citas %}
+<!-- fin_bloque_CRUD_citas -->
+
+<!-- inicio_seccion_principal_02 -->
+{% block seccion_principal_02 %}
+    {% include "doctors/calendario_citas_confirmadas.html" %}
+{% endblock seccion_principal_02 %}
+<!-- fin_seccion_principal_02 -->

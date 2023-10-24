@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Login - MedApp</title>
+{% endblock title %}
+
+<!-- inicio_contenido_global -->
+{% block contenido_global %}
+<div class="container mt-5 mb-3">
+    <div class="container-fluid">
+        <div class="container col-xs-6 col-sm-12 col-md-7 col-lg-4 mt-4 mb-4 card">
+            <img src="{% static 'img/logo_medapp.png' %}" alt="user_name_img_avatar" class="img-fluid mt-2 p-2" style="border-radius: 10px;">
+            <div id="myAlert" class="alert alert-light alert-dismissible fade show text-center" role="alert">
+                <p class="lead">Ups! algo salió mal :( {{mensaje}}</p>
+                <!-- Agrega enlaces a las vistas de inicio de sesión y registro -->
+                <a name="botones_personalizados" id="botones_personalizados" class="btn btn-sm mb-3" href="{% url 'citas_app:appointments_index' %}" role="button">Intenta de nuevo...</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contenido_global %}
+<!-- fin_contenido_global -->

@@ -1,0 +1,54 @@
+<div class="card-title border rounded border-3 col-md-10 p-5">
+<h3 class="text-center text-secondary p-3">Calendario de Citas Confirmadas</h3>
+<div id="calendar" class="card-body"></div>
+<script>
+    // Espera a que el contenido del documento se haya cargado completamente
+    document.addEventListener('DOMContentLoaded', function() {
+        // Obtiene el elemento del calendario por su ID
+        var calendarEl = document.getElementById('calendar');
+
+        // Obtiene los eventos en formato JSON y los asigna a la variable "eventos"
+        var eventos = {{ eventos|safe }};
+
+        // Inicializa el calendario utilizando FullCalendar
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            // Establece la vista inicial del calendario como "dayGridMonth" (Mes)
+            initialView: 'dayGridMonth',
+            
+            // Asigna los eventos al calendario
+            events: eventos,  // Aquí se pasan los eventos desde la vista al calendario
+            
+            // Establece el idioma del calendario a español
+            locale: 'es',
+            
+            // Formato del título de los eventos
+            eventTitleFormat: {
+                month: 'short', // Mes en formato corto (Enero, Febrero, ...)
+                day: 'numeric', // Día del mes (1, 2, 3, ...)
+                year: 'numeric'  // Año (2023)
+            },
+            
+            // Barra de herramientas del encabezado del calendario
+            headerToolbar: {
+                left: 'prevYear,prev,today,next,nextYear', // Botones de navegación
+                center: 'title', // Título del calendario
+                right: 'dayGridMonth,timeGridWeek,timeGridDay' // Vistas del calendario
+            },
+            
+            // Botones de texto personalizados
+            buttonText: {
+                today: 'Hoy', // Botón para regresar al día actual
+                month: 'Mes', // Botón para ver la vista de Mes
+                week: 'Semana', // Botón para ver la vista de Semana
+                day: 'Día' // Botón para ver la vista de Día
+            },
+        });
+
+        // Renderiza el calendario en el template
+        calendar.render();
+    });
+</script>
+
+
+</div>
+

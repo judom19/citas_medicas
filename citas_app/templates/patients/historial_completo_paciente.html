@@ -1,0 +1,26 @@
+{% extends "CRUD_appointments/closest_appointments.html" %}
+
+<!-- inicio_seccion_principal_02 -->
+{% block seccion_principal_02 %}
+    <div class="container my-5">
+        <div class="jumbotron">
+            <h3 class="display-6 text-center p-3 text-secondary">Mi Historial General</h3>
+            <ul class="list-unstyled">
+                {% for registro in historial %}
+                    <li>
+                        <div class="card col-md-10 offset-1 mb-3 p-3">
+                            <div class="card-body">
+                                <h3 class="card-title bg-light p-3" style="border-radius: 10px;">Cita del {{ registro.cita_medica.fecha }}</h3>
+                                <p class="card-text"><strong>Medico: </strong> {{ registro.cita_medica.medico.nombre_medico }} {{ registro.cita_medica.medico.apellido_medico }}</p>
+                                <hr>
+                                <p class="card-text"><strong>Tratamiento: </strong> {{ registro.tratamiento }}</p>
+                                <p class="card-text"><strong>Diagnóstico: </strong>{{ registro.diagnostico }}</p>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock seccion_principal_02 %}
+<!-- fin_seccion_principal_02 -->

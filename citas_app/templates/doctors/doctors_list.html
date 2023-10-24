@@ -1,0 +1,44 @@
+{% extends "doctors/doctors_index.html" %}
+
+<!-- inicio_seccion_principal_02 -->
+{% block seccion_principal_02 %}
+    <div class="container mt-3">
+        <h5 class="text-center">Lista de Medicos</h5>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center" scope="col">Usuario</th>
+                        <th class="text-center" scope="col">Nombre</th>
+                        <th class="text-center" scope="col">Apellido</th>
+                        <th class="text-center" scope="col">Especialidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for medico in medicos %}
+                        <tr>
+                            <td class="text-center">{{ medico.usuario_medico }}</td>
+                            <td class="text-center">{{ medico.nombre_medico }}</td>
+                            <td class="text-center">{{ medico.apellido_medico }}</td>
+                            <td class="text-center">{{ medico.especialidad_medico }}</td>
+                            <td class="text-center">
+                                <a href="{% url 'citas_app:doctors_update' medico.id %}" class="btn btn-primary btn-sm" title="Editar">
+                                    <i class="fas fa-edit"></i> <!-- Ícono de edición -->
+                                </a>
+                                <a href="{% url 'citas_app:doctors_delete' medico.id %}" class="btn btn-danger btn-sm" title="Eliminar">
+                                    <i class="fas fa-trash-alt"></i> <!-- Ícono de eliminación -->
+                                </a>
+                            </td>
+                            
+                            
+
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>                                
+{% endblock seccion_principal_02 %}
+<!-- fin_seccion_principal_02 -->
+

@@ -1,0 +1,79 @@
+{% extends "doctors/doctors_index.html" %}
+
+{% load static %}
+
+<!-- inicio_titulo -->
+{% block title %}
+    <title>Médicos - MedApp</title>
+{% endblock title %}
+<!-- fin_titulo -->
+
+<!-- inicio_bloque_CRUD_citas -->
+{% block bloque_CRUD_citas %}
+    <div class="container">
+        <h5 class="text-center">Lista de Citas de Pacientes</h5>
+        <input type="text" id="searchInput" placeholder="Buscar paciente..." class="form-control mb-2">
+        <div class="table-responsive">
+            <table class="table table-striped" id="pacientesTable">
+                <thead>
+                    <tr>
+                        <th class="text-center" scope="col">ID</th>
+                        <th class="text-center" scope="col">Usuario</th>
+                        <th class="text-center" scope="col">Nombre</th>
+                        <th class="text-center" scope="col">Apellidos</th>
+                        <th class="text-center" scope="col">Edad</th>
+                        <th class="text-center" scope="col">Sexo</th>
+                        <th class="text-center" scope="col">Fecha de Nacimiento</th>
+                        <th class="text-center" scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for paciente in pacientes %}
+                        <tr class="pacienteRow">
+                            <td class="text-center">{{ paciente.id }}</td>
+                            <td class="text-center">{{ paciente.usuario_paciente }}</td>
+                            <td class="text-center">{{ paciente.nombre_paciente }}</td>
+                            <td class="text-center">{{ paciente.apellido_paciente }}</td>
+                            <td class="text-center">{{ paciente.edad_paciente }}</td>
+                            <td class="text-center">{{ paciente.sexo_paciente }}</td>
+                            <td class="text-center">{{ paciente.fecha_nac_paciente }}</td>
+                            <td class="text-center">
+                                <a href="{% url 'citas_app:ver_historial_completo' paciente.id %}" class="btn btn-sm btn-info">Historial completo</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        // Obtén el campo de entrada y la tabla
+        const input = document.getElementById("searchInput");
+        const table = document.getElementById("pacientesTable");
+
+        // Agrega un evento de escucha para el campo de entrada
+        input.addEventListener("keyup", function () {
+            const filtro = input.value.toLowerCase();
+            const filas = table.querySelectorAll(".pacienteRow");
+
+            filas.forEach(function (fila) {
+                const datosFila = fila.querySelectorAll("td");
+                let mostrar = false;
+
+                datosFila.forEach(function (celda) {
+                    if (celda.textContent.toLowerCase().indexOf(filtro) > -1) {
+                        mostrar = true;
+                    }
+                });
+
+                if (mostrar) {
+                    fila.style.display = "";
+                } else {
+                    fila.style.display = "none";
+                }
+            });
+        });
+    </script>
+{% endblock bloque_CRUD_citas %}
+<!-- fin_bloque_CRUD_citas -->

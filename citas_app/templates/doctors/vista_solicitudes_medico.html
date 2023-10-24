@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+<!-- inicio_bloque_CRUD_medicos -->
+{% block bloque_CRUD_citas %}
+    <div class="table-responsive">
+        <input type="text" id="searchInput" class="form-control" placeholder="Buscar">
+        <table class="table table-bordered mt-2">
+            <thead>
+                <tr class="table-primary">
+                    <th class="text-center">Cod Cita</th>
+                    <th class="text-center">Paciente</th>
+                    <th class="text-center">Fecha</th>
+                    <th class="text-center">Hora</th>
+                    <th class="text-center">Motivo</th>
+                    <th class="text-center">Estado</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cita in solicitudes_citas %}
+                    <tr class="table-secondary">
+                        <td>{{ cita.id }}</td>
+                        <td>{{ cita.paciente }}</td>
+                        <td>{{ cita.fecha }}</td>
+                        <td>{{ cita.hora }}</td>
+                        <td>{{ cita.motivo }}</td>
+                        <td>
+                            {% if cita.confirmado %}
+                                {% if cita.completada %}
+                                    <span class="text-info">Finalizada</span>
+                                {% else %}
+                                    <span class="text-success">Confirmada</span>
+                                {% endif %}
+                            {% else %}
+                                <span class="text-warning">Pendiente de confirmar</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if cita.confirmado %}
+                                {% if cita.completada %}
+                                    <a href="{% url 'citas_app:ver_historial' cita.id %}" class="btn btn-sm btn-info">Ver detalles</a>
+                                {% else %}
+                                    <a href="{% url 'citas_app:completar_cita' cita.id %}" class="btn btn-sm btn-success">Iniciar</a>
+                                {% endif %}
+                            {% else %}
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <a href="{% url 'citas_app:confirmar_cita_medico' cita.id %}" class="btn btn-sm btn-warning">Confirmar</a>
+                                        </div>
+                                        <div class="col-xl-5 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                            <a href="{% url 'citas_app:reprogramar_cita' cita.id %}" class="btn btn-sm btn-danger">Reprogramar</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock bloque_CRUD_citas %}
+<!-- fin_bloque_CRUD_citas -->
+
+<!-- inicio_seccion_principal_02 -->
+{% block seccion_principal_02 %}
+    {% include "doctors/calendario_citas_confirmadas.html" %}
+{% endblock seccion_principal_02 %}
+<!-- fin_seccion_principal_02 -->

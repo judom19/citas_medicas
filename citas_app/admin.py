@@ -1,7 +1,8 @@
 from django.contrib import admin
-from citas_app import Paciente,Medico,Cita
+from .models import Paciente,Medico,CitaMedica, CompletarHistorial
 
-# Register your models here.
+#registro de los modelos en panel de administracion
 admin.site.register(Paciente)
 admin.site.register(Medico)
-admin.site.register(Cita)
+admin.site.register(CitaMedica)
+admin.site.register(CompletarHistorial)

@@ -1,0 +1,60 @@
+{% extends "CRUD_appointments/closest_appointments.html" %}
+{% load static %}
+
+<!-- inicio_bloque_CRUD_citas -->
+{% block seccion_principal_02 %}         
+    <div class="container card border rounded border-2 p-3">
+        <h3 class="text-center p-3">Editar Paciente</h3>
+        <form method="post">
+            <div class="row"> 
+            {% csrf_token %}
+            <div class="container col-md-6">
+                <div class="form-group">
+                    {{ form.nombre_paciente.label_tag }}
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        {{ form.nombre_paciente }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.apellido_paciente.label_tag }}
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        {{ form.apellido_paciente }}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container col-md-6">
+                <div class="form-group">
+                    {{ form.edad_paciente.label_tag }}
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        {{ form.edad_paciente }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.sexo_paciente.label_tag }}
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-heart"></i></span>
+                        {{ form.sexo_paciente }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.fecha_nac_paciente.label_tag }}
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        {{ form.fecha_nac_paciente }}
+                    </div>
+                </div>
+                {% if user_paciente %}
+                    <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar Cambios</button>
+                    {% else %}
+                        <button type="submit" class="btn btn-primary btn-sm mt-3" id="botones_personalizados"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar Perfil</button>
+                    {% endif %}
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock seccion_principal_02 %}
+<!-- fin_bloque_CRUD_citas -->

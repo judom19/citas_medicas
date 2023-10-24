@@ -1,0 +1,54 @@
+{% extends "CRUD_appointments/citas_medicas_list.html" %}
+
+<!-- inicio_seccion_principal_02 -->
+{% block seccion_principal_02 %}
+    <div class="col-md-10 offset-1">
+        <div class="card border rounded border-2">
+            <div class="card-body">
+                <h3 class="card-title text-center p-3">Ficha de la Cita Médica</h1>
+                <h4 class="card-title text-center">Cod({{ficha_cita.id}})</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card border-light mb-3 rounded border-3">
+                            <div class="card-header bg-light">Datos de la Cita</div>
+                            <div class="card-body">
+                                <p class="card-text">Fecha: <strong class="text-secondary">{{ ficha_cita.fecha }}</strong></p>
+                                <p class="card-text">Hora: <strong class="text-secondary">{{ ficha_cita.hora }}</strong></p>
+                                <p class="card-text">Motivo: <strong class="text-secondary">{{ ficha_cita.motivo }}</strong></p>
+                                <!-- Campo de nota -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card border-light mb-3 rounded border-3">
+                            <div class="card-header bg-light">Datos del Paciente</div>
+                            <div class="card-body">
+                                <p class="card-text">Nombre: <strong class="text-secondary">{{ ficha_cita.paciente.nombre_paciente }}</strong></p>
+                                <p class="card-text">Apellido: <strong class="text-secondary">{{ ficha_cita.paciente.apellido_paciente }}</strong></p>
+                                <p class="card-text">Médico: <strong class="text-secondary">{{ ficha_cita.medico.nombre_medico }} {{ ficha_cita.medico.apellido_medico }}({{ ficha_cita.medico.especialidad_medico }})</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-light rounded border-5">
+                    <div class="card-header bg-light">Infomación de la consulta</div>
+                    <div class="card-body">
+                        {% if ficha_cita.completada %}
+                            <p class="card-text">Diagnóstico: <strong class="text-secondary">{{ ficha_historial.diagnostico }}</strong></p>
+                            <p class="card-text">Tratamiento: <strong class="text-secondary">{{ ficha_historial.tratamiento }}</strong></p>
+                            <p class="card-text">Estado de la cita: <strong class="text-secondary">Finalizada</strong></p>
+                        {% else %}
+                            <div class="card container border rounded border-2 p-3">
+                                <p class="card-text text-fark text-center p-3" id="botones_personalizados">Estado: Cita se encuentra a espera de asistencia</p>
+                            </div>
+                        {% endif %}
+                            
+                    </div>                                    
+                </div>                
+            </div>
+        </div>
+        
+    </div>
+{% endblock seccion_principal_02 %}
+<!-- fin_seccion_principal_02 -->
+

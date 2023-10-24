@@ -1,0 +1,49 @@
+{% extends "doctors/doctors_index.html" %}
+
+<!-- inicio_seccion_principal_02 -->
+{% block seccion_principal_02 %}
+    
+    <div class="container col-sm-12 col-md-6 col-lg-10 container-transition p-3 bg-light">
+        <form method="post" class="form-horizontal">
+            {% csrf_token %}
+            <div class="row">
+            
+                <!-- Médico Form -->
+                <div class="container col-md-8 card border rounded border-3 p-3">
+                    <fieldset>
+                        <legend>Actualizar Datos del Médico</legend>
+                        <div class="form-group">
+                            <label for="{{ medico_form.nombre_medico.id_for_label }}" class="col-lg-2 control-label">{{ medico_form.nombre_medico.label_tag }}</label>
+                            <div class="col-lg-10">
+                                {{ medico_form.nombre_medico }}
+                                {{ medico_form.nombre_medico.errors }}
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="{{ medico_form.apellido_medico.id_for_label }}" class="col-lg-2 control-label">{{ medico_form.apellido_medico.label_tag }}</label>
+                            <div class="col-lg-10">
+                                {{ medico_form.apellido_medico }}
+                                {{ medico_form.apellido_medico.errors }}
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="{{ medico_form.especialidad_medico.id_for_label }}" class="col-lg-2 control-label">{{ medico_form.especialidad_medico.label_tag }}</label>
+                            <div class="col-lg-10">
+                                {{ medico_form.especialidad_medico }}
+                                {{ medico_form.especialidad_medico.errors }}
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-2 mt-2">
+                            <button type="submit" class="btn btn-primary">Actualizar Datos del Médico</button>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </form>        
+    </div> 
+{% endblock seccion_principal_02 %}
+<!-- fin_seccion_principal_02 -->

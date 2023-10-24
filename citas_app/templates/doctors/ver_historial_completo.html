@@ -1,0 +1,39 @@
+{% extends "patients/patients_index.html" %}
+
+<!-- inicio_seccion_principal_02 -->
+{% block seccion_principal_02 %}
+    <div class="col-md-11">
+        <div class="card border rounded border-2">
+            <div class="card-body">
+                <h3 class="card-title text-center pt-3">Historial Médico</h3>
+                <h3 class="card-title text-center p-1">{{paciente.nombre_paciente}} {{paciente.apellido_paciente}} ID({{paciente.id}})</h3>                
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        {% if historiales %}
+
+                                <tr>
+                                    <th class="border rounded border-2">Fecha/Consulta</th>
+                                    <th class="border rounded border-2">Diagnóstico</th>
+                                    <th class="border rounded border-2">Tratamiento</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for historial in historiales %}
+                                <tr>
+                                    <td class="border rounded border-2">{{ historial.fecha }}</td>
+                                    <td class="border rounded border-2">{{ historial.diagnostico }}</td>
+                                    <td class="border rounded border-2">{{ historial.tratamiento }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td class="text-mute text-center card border rounded border-2">No hay historial de este paciente</td>                               
+                            </tr>
+                            </tbody>
+                        {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock seccion_principal_02 %}
+<!-- fin_seccion_principal_02 -->

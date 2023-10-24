@@ -1,0 +1,40 @@
+{% extends 'doctors/doctors_list.html' %}
+{% load static %}
+
+<!-- inicio_titulo -->
+{% block title %}
+    <title>Médicos - MedApp</title>
+{% endblock title %}
+<!-- fin_titulo -->
+
+<!-- inicio_seccion_principal_02 -->
+{% block seccion_principal_02 %}
+<div class="container col-md-8 mt-4 card p-5 border rounded border-3">
+    <h1>Eliminar Médico</h1>
+    <p>¿Estás seguro de que deseas eliminar este médico?</p>
+
+    <dl class="row">
+        <dt class="col-sm-3">ID:</dt>
+        <dd class="col-sm-9">{{ medico.id }}</dd>
+        
+        <dt class="col-sm-3">Usuario:</dt>
+        <dd class="col-sm-9">{{ medico.usuario_medico }}</dd>
+
+        <dt class="col-sm-3">Nombre:</dt>
+        <dd class="col-sm-9">{{ medico.nombre_medico }}</dd>
+
+        <dt class="col-sm-3">Apellido:</dt>
+        <dd class="col-sm-9">{{ medico.apellido_medico }}</dd>
+
+        <dt class="col-sm-3">Especialidad:</dt>
+        <dd class="col-sm-9">{{ medico.especialidad_medico }}</dd>
+    </dl>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="{% url 'medical_appointments:doctors_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock seccion_principal_02 %}
+<!-- fin_seccion_principal_02 -->

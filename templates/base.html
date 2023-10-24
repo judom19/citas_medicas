@@ -1,0 +1,269 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+    <!-- inicio_head -->
+    {% block head %}
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+            <!-- inicio_titulo_pagina -->
+            {% block title %}
+                <title>MedApp - Gestion de Citas</title>
+            {% endblock title %}
+            <!-- fin_titulo_pagina -->
+
+            <!-- inicio_Bootstrap y CSS -->
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+            <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+            <!-- fin_Bootstrap y CSS -->
+        </head>
+
+    {% endblock head %}
+    <!-- fin_head -->
+
+    <!-- inicio_body -->
+    {% block body %}
+        <body>
+
+            <!-- inicio_navbar_principal -->
+            {% block navbar_principal %}
+                {% if user.is_authenticated %}
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5 fixed-top">
+                        <div class="container-fluid">
+                            <a class="navbar-brand" href="{% url 'citas_app:appointments_index' %}"><img src="{% static 'img/logo_medapp.png' %}" alt="user_name_img_avatar" class="img-fluid " width="100" height="80" style="border-radius: 10px;"></a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                        
+                                    {% if user.paciente %}
+
+                                    {% elif user.medico or user.is_superuser %}
+                                        <li class="nav-item {% if request.path == '/medical_appointments/doctors_index/' or request.path == '/medical_appointments/doctors_list/'%}active{% endif %}">
+                                            <a class="nav-link" href="{% url 'citas_app:doctors_index' %}">Medicos</a>
+                                        </li>
+                                    {% endif %}                                  
+                                    
+                                    <li class="nav-item {% if request.path == '/medical_appointments/specialties_index/'%}active{% endif %}">
+                                        <a class="nav-link" href="{% url 'citas_app:specialties_index' %}">Especialidades</a>
+                                    </li>
+                                    {% if user.paciente %}
+
+                                    {% elif user.medico or user.is_superuser %}
+                                        <li class="nav-item {% if request.path == '/medical_appointments/patients_index/' %}active{% endif %}">
+                                            <a class="nav-link" aria-current="page" href="{% url 'citas_app:patients_index' %}">Pacientes</a>
+                                        </li>
+                                    {% endif %}
+                                    {% if user.paciente %}            
+                                        <li class="nav-item {% if request.path == '/medical_appointments/contact_index/' %}active{% endif %}">
+                                            <a class="nav-link" aria-current="page" href="{% url 'citas_app:contact_index' %}">Contacto</a>
+                                        </li>
+                                    {% elif user.medico or user.is_superuser %}
+
+                                    {% endif %}
+                                    
+                                </ul>
+                                {% if user.is_authenticated %}
+                                <ul>
+                                    <a id="botones_personalizados" class="btn btn-md text-center" href="{% url 'logout' %}">Salir</a>
+                                <ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </nav>
+                {% endif %}   
+            {% endblock navbar_principal %}
+            <!-- fin_navbar_principal -->
+
+            <br><br><br><br>
+
+            <!-- inicio_contenido_global -->
+            {% block contenido_global %}
+                <div class="row">
+                    <div class="col-md-6 bg-light">
+                        <!-- inicio_seccion_principal_01 -->
+                        {% block seccion_principal_01 %}
+                            <aside class="sidebar bg-white pb-3">
+                                <div class="container">
+                                    <!-- inicio_info_usuario -->
+                                    {% block info_usuario %}
+                                        <div class="user-info text-center mt-3 mb-3">
+                                            <img src="{% static 'img/user_avatar.jpg' %}" alt="user_name_img_avatar" class="img-fluid rounded-circle" width="150" height="200" title="Editar avatar">
+                                            <h5 class="mt-2">Usuario:{{ user.username }}</h5>
+                                            {% if user.is_superuser %}
+                                                <h5 class="mt-2 text-secondary">(admin)</h5>
+                                            {% elif user.paciente %}
+                                                <h5 class="mt-2 text-secondary">(Paciente)</h5>
+                                            {% elif user.medico %}
+                                                <h5 class="mt-2 text-secondary">(Medico)</h5>
+                                            {% endif %}
+                                            {% if user.paciente %}
+                                                <a href="{% url 'citas_app:closest_appointments' %}" class="btn btn-primary btn-sm mb-1">Menú principal de citas</a>
+                                                <a href="{% url 'citas_app:appointments_index_profile_edit' %}" class="btn btn-primary btn-sm mb-1">Editar mi perfil personal</a>
+                                            {% elif user.medico %}
+                                                <a class="btn btn-primary btn-sm mb-1" href="{% url 'citas_app:vista_solicitudes_medico' %}">Ver mis citas</a>
+                                                <a class="btn btn-primary btn-sm mb-1" href="{% url 'citas_app:citas_generales'%}">Ver todas las citas</a>
+                                                <a class="btn btn-primary btn-sm mb-1" href="{% url 'citas_app:doctors_list' %}">Lista de médicos</a>
+                                                <a class="btn btn-primary btn-sm mb-1" href="{% url 'citas_app:doctors_create' %}">Crear Médico</a>
+                                            {% endif %}
+                                        </div>
+                                    {% endblock info_usuario %}
+                                    <!-- fin_info_usuario -->
+
+                                    <!-- inicio_menu_sidebar -->
+                                    {% block menu_sidebar %}
+
+                                    {% endblock menu_sidebar %}
+                                    <!-- fin_menu_sidebar -->
+
+                                    <!-- inicio_bloque_CRUD_citas -->
+                                    {% block bloque_CRUD_citas %}
+                                        <div class="container m-3">
+                                            <table class="table table-responsive-md table-striped">
+                                                <h3 class="text-center bg-light p-3">Datos personales</h3>
+                                                <tr>                                                
+                                                    {% if user.paciente %}
+                                                        <th>Nombre:</th>
+                                                        <td>{{ user.paciente.nombre_paciente }}</td>
+                                                    {% elif user.medico %}
+                                                        <th>Nombre:</th>
+                                                        <td>{{ user.medico.id }}</td>
+                                                    {% endif %}
+                                                </tr>
+                                                <tr>
+                                                    {% if user.paciente %}
+                                                        <th>Apellido:</th>
+                                                        <td>{{ user.paciente.apellido_paciente }}</td>
+                                                    {% elif user.medico %}
+                                                        <th>Apellido:</th>
+                                                        <td>{{ user.medico.apellido_medico }}</td>
+                                                    {% endif %}
+                                                    </tr>
+                                                <tr>
+                                                    {% if user.paciente %}
+                                                        <th>Edad:</th>
+                                                        <td>{{ user.paciente.edad_paciente }}</td>
+                                                    {% elif user.medico %}
+                                                        <th>Especialidad:</th>
+                                                        <td>{{ user.medico.especialidad_medico }}</td>
+                                                    {% endif %}
+                                                    </tr>
+                                                <tr>
+                                                    {% if user.paciente %}
+                                                        <th>Sexo:</th>
+                                                        <td>{{ user.paciente.sexo_paciente }}</td>
+                                                    {% elif user.medico %}
+                                                        <th>Nombre de Usuario:</th>
+                                                        <td>{{ user.medico.usuario_medico }}</td>
+                                                    {% endif %}
+                                                    </tr>
+                                                <tr>
+                                                    {% if user.paciente %}
+                                                        <th>Fecha de nacimiento:</th>
+                                                        <td>{{ user.paciente.fecha_nac_paciente }}</td>
+                                                    {% elif user.medico %}
+                                                    
+                                                    {% endif %}
+                                                </tr>
+                                            </table>
+                                        </div>                                
+                                    {% endblock bloque_CRUD_citas %}
+                                    <!-- fin_bloque_CRUD_citas -->
+
+                                    <!-- inicio_notificaciones -->
+                                    {% block notificaciones %}
+                                       
+                                    {% endblock notificaciones %}
+                                    <!-- fin_notificaciones -->
+                                </div>
+                            </aside>
+                        {% endblock seccion_principal_01 %}
+                        <!-- fin_seccion_principal_01 --> 
+                    </div>
+
+                    <!-- inicio_seccion_principal_02 -->
+                    <div class="col-md-6 bg-light p-3">
+                        {% block seccion_principal_02 %}   
+                        <div class="container card border rounded border-2 col-md-8" style="background-color: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
+                            {% if user.paciente %}
+                                <h1>¡Bienvenid@ {{ user.paciente.nombre_paciente }} MedApp!</h1>
+                            {% elif user.medico %}
+                                <h1>¡Bienvenid@ {{ user.medico.nombre_medico }} MedApp!</h1>
+                            {% endif %}
+                           
+                        </div>
+                                                
+                        <div id="carouselId02" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <br><br>
+                                <div class="carousel-item active">
+                                    <img src="{% static 'img/fondo01.png' %}" alt="" class="d-block" style="border-radius: 10px;">
+                                    <div class="carousel-caption">
+                                        <h2 class="text-secondary">Visión</h2>
+                                        <div class="container col-8">
+                                            <p class="text-secondary">Ser líderes en la atención médica de calidad, proporcionando un entorno de confianza y comodidad para nuestros pacientes. Buscamos ser reconocidos como un consultorio médico que utiliza la tecnología más avanzada y ofrece un servicio excepcional centrado en la salud y el bienestar de nuestros pacientes.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="{% static 'img/fondo01.png' %}" alt="" class="d-block" style="border-radius: 10px;">
+                                    <div class="carousel-caption">
+                                        <h2 class="text-secondary">Misión</h2>
+                                        <div class="container col-8">
+                                            <p class="text-secondary">Brindar atención médica de calidad y accesible para mejorar la vida de nuestros pacientes. Nos comprometemos a ofrecer diagnósticos precisos, tratamientos efectivos y cuidado compasivo.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselId01" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselId01" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                        {% endblock seccion_principal_02 %}
+                        <!-- fin_seccion_principal_02 -->
+                    </div>
+                    
+                </div>
+            {% endblock contenido_global %}
+            <!-- fin_contenido_global -->
+
+            <br><br><br><br>
+            <!-- inicio_footer -->
+            {% block footer %}
+            <footer class="bg-white text-center fixed-bottom">
+            <p>&copy; 2023 MedApp - Citas Médicas</p>
+            </footer>    
+            {% endblock footer %}
+            <!-- fin_footer -->
+
+
+
+            <!-- inicio_scripts_Bootstrap_JavaScript -->
+            {% block scripts %}
+            <script src="{% static 'js/search_specialties.js' %}"></script>
+            <script src="{% static 'js/transition_forms.js' %}"></script>
+            <script src="{% static 'js/carrousel.js' %}"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.4/umd/popper.min.js"></script>
+            <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
+            
+
+            
+            {% endblock scripts %}    
+            <!-- fin_scripts_Bootstrap_JavaScript -->
+
+        </body>
+    {% endblock body %}
+    <!-- fin_body -->
+
+</html>
